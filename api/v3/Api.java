@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 
 public class Api {
-
 	public String sendGet(String url) {
 		try {
 			StringBuffer buffer = new StringBuffer();
@@ -18,16 +17,17 @@ public class Api {
 			HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("User-Agent", "CepAberto");
-	    conn.setRequestProperty("Accept", "application/json");
-	    conn.setRequestProperty("Authorization", "Token token=<SEU-TOKEN>");
-	    int responseCode = conn.getResponseCode();
-	    System.out.println("Response Code: " + responseCode);
-	    BufferedReader in = new BufferedReader(
-			        new InputStreamReader(conn.getInputStream()));
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setRequestProperty("Authorization", "Token token=<SEU-TOKEN>");
+			int responseCode = conn.getResponseCode();
+			System.out.println("Response Code: " + responseCode);
+			BufferedReader in = new BufferedReader(
+				new InputStreamReader(conn.getInputStream()));
 
 			while ((inputLine = in.readLine()) != null) {
 				buffer.append(inputLine);
 			}
+
 			in.close();
 			return buffer.toString();
 		} catch (MalformedURLException e) {
@@ -53,5 +53,4 @@ public class Api {
 		JSONObject obj3 = obj.getJSONObject("estado");
 		System.out.println("Sigla Estado: "+obj3.getString("sigla"));
 	}
-	
 }
