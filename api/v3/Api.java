@@ -7,7 +7,7 @@ import java.net.URL;
 
 import org.json.JSONObject;
 
-
+//Codigo de consumo para API CepAperto
 public class Api {
 	public String sendGet(String url) {
 		try {
