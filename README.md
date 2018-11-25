@@ -13,5 +13,70 @@ Os exemplos agrupados neste repositório foram, em sua maioria, contribuição d
 * VBA
 * Golang
 * Node.js
+<table>
+  <tr>
+    <th rowspan="2">Linguagem</th>
+    <th colspan="2">API</th>
+  </tr>
+  <tr>
+    <td>v2</td>
+    <td>v3</td>
+  </tr>
+  <tr>
+    <td>Bash(Curl)</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>Python 2</td>
+    <td>:heavy_check_mark:</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>Python 3</td>
+    <td>:heavy_check_mark:</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>Ruby</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>C#</td>
+    <td>:heavy_check_mark:</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>PHP</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>Delphi</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>Java</td>
+    <td>:heavy_check_mark:</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>VBA</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>GOlang</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+  <tr>
+    <td>Node.js</td>
+    <td>:heavy_check_mark:</td>
+    <td>:x:</td>
+  </tr>
+</table>
 
 Se quiser adicionar linguagens não existentes na lista, envie uma PR.
