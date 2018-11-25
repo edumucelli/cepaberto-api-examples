@@ -3,16 +3,6 @@ Exemplos de como implementar a requisição a API do CEP Aberto usando seu token
 
 Os exemplos agrupados neste repositório foram, em sua maioria, contribuição de usuários do CEP Aberto. Estes não pretendem ser códigos completos, mas snippets que indiquem como utilizar a API em cada uma das seguintes linguagens
 
-* Bash (Curl)
-* Python
-* Ruby
-* C#
-* PHP
-* Delphi
-* Java
-* VBA
-* Golang
-* Node.js
 <table>
   <tr>
     <th rowspan="2">Linguagem</th>
