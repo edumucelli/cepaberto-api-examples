@@ -1,0 +1,28 @@
+import requests
+
+token = "YOUR_TOKEN"
+headers = {'Authorization': 'Token token=%s' % token}
+
+
+def search_by_cep():
+    url = "http://www.cepaberto.com/api/v3/cep?cep=40010000"
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+
+def search_by_address():
+    url = "http://www.cepaberto.com/api/v3/address?estado=SP&cidade=São Paulo&logradouro=Praça da Sé"
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+
+def search_cities():
+    url = "http://www.cepaberto.com/api/v3/cities?estado=AM"
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+
+if __name__ == '__main__':
+    print(search_by_cep())
+    print(search_by_address())
+    print(search_cities())
