@@ -13,5 +13,6 @@ Os exemplos agrupados neste repositório foram, em sua maioria, contribuição d
 * VBA
 * Golang
 * Node.js
+* R
 
 Se quiser adicionar linguagens não existentes na lista, envie uma PR.
