@@ -17,7 +17,7 @@ public class Api {
 
     private Optional<Cep> searchByCep(@NonNull String cep) {
         return cepFromRequest(new Request.Builder()
-                .url(String.format("http://localhost:3000/api/v3/cep?cep=%s", cep))
+                .url(String.format("http://www.cepaberto.com/api/v3/cep?cep=%s", cep))
                 .addHeader("Authorization", "Token token=YOUR_TOKEN")
                 .build()
         );
@@ -30,7 +30,7 @@ public class Api {
     ) {
         return cepFromRequest(
                 new Request.Builder()
-                        .url(String.format("http://localhost:3000/api/v3/address?estado=%s&cidade=%s&logradouro=%s", estado, cidade, logradouro))
+                        .url(String.format("http://www.cepaberto.com/api/v3/address?estado=%s&cidade=%s&logradouro=%s", estado, cidade, logradouro))
                         .addHeader("Authorization", "Token token=YOUR_TOKEN")
                         .build()
         );
