@@ -17,7 +17,7 @@ public class Api {
 
     private Optional<Cep> searchByCep(@NonNull String cep) {
         return cepFromRequest(new Request.Builder()
-                .url(String.format("http://www.cepaberto.com/api/v3/cep?cep=%s", cep))
+                .url(String.format("http://localhost:3000/api/v3/cep?cep=%s", cep))
                 .addHeader("Authorization", "Token token=YOUR_TOKEN")
                 .build()
         );
@@ -30,17 +30,9 @@ public class Api {
     ) {
         return cepFromRequest(
                 new Request.Builder()
-                        .url(String.format("http://www.cepaberto.com/api/v3/address?estado=%s&cidade=%s&logradouro=%s", estado, cidade, logradouro))
+                        .url(String.format("http://localhost:3000/api/v3/address?estado=%s&cidade=%s&logradouro=%s", estado, cidade, logradouro))
                         .addHeader("Authorization", "Token token=YOUR_TOKEN")
                         .build()
-        );
-    }
-
-    private Optional<Cep> searchCities(@NonNull String estado) {
-        return cepFromRequest(new Request.Builder()
-                .url(String.format("http://www.cepaberto.com/api/v3/cities?estado=%s", estado))
-                .addHeader("Authorization", "Token token=YOUR_TOKEN")
-                .build()
         );
     }
 
@@ -65,7 +57,7 @@ public class Api {
         private final String logradouro;
         private final Cidade cidade;
         private final Estado estado;
-        
+
         @Value
         private static class Cidade {
             private final String nome;
@@ -83,6 +75,5 @@ public class Api {
         Api api = new Api();
         System.out.println(api.searchByCep("40010000"));
         System.out.println(api.searchByAddress("SP", "São Paulo", "Praça da Sé"));
-        System.out.println(api.searchCities("AM"));
     }
 }
