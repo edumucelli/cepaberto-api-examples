@@ -1,56 +1,88 @@
-import java.io.BufferedReader;
+package cepaberto;
+
+import com.google.gson.Gson;
+import lombok.NonNull;
+import lombok.Value;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.Optional;
 
-import org.json.JSONObject;
-
-//Codigo de consumo para API CepAperto
 public class Api {
-	public String sendGet(String url) {
-		try {
-			StringBuffer buffer = new StringBuffer();
-			String inputLine;
-			URL obj = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("User-Agent", "CepAberto");
-			conn.setRequestProperty("Accept", "application/json");
-			conn.setRequestProperty("Authorization", "Token token=<SEU-TOKEN>");
-			int responseCode = conn.getResponseCode();
-			System.out.println("Response Code: " + responseCode);
-			BufferedReader in = new BufferedReader(
-				new InputStreamReader(conn.getInputStream()));
 
-			while ((inputLine = in.readLine()) != null) {
-				buffer.append(inputLine);
-			}
+    private final OkHttpClient httpClient = new OkHttpClient();
+    private final Gson gson = new Gson();
 
-			in.close();
-			return buffer.toString();
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public static void main(String[] args) {
-		String json = new Api().sendGet("http://www.cepaberto.com/api/v3/cep?cep=<CEP>");
-		JSONObject obj = new JSONObject(json);
-		System.out.println("Altitude: "+obj.getDouble("altitude"));
-		System.out.println("Cep: "+obj.getString("cep"));
-		System.out.println("Latitude: "+obj.getString("latitude"));
-		System.out.println("Longitude: "+obj.getString("longitude"));
-		System.out.println("Logradouro: "+obj.getString("logradouro"));
-		System.out.println("Bairro: "+obj.getString("bairro"));
-		JSONObject obj2 = obj.getJSONObject("cidade");
-		System.out.println("Cidade DDD: "+obj2.getInt("ddd"));
-		System.out.println("Cidade IBGE: "+obj2.getString("ibge"));
-		System.out.println("Nome da Cidade: "+obj2.getString("nome"));
-		JSONObject obj3 = obj.getJSONObject("estado");
-		System.out.println("Sigla Estado: "+obj3.getString("sigla"));
-	}
+    private Optional<Cep> searchByCep(@NonNull String cep) {
+        return cepFromRequest(new Request.Builder()
+                .url(String.format("http://www.cepaberto.com/api/v3/cep?cep=%s", cep))
+                .addHeader("Authorization", "Token token=YOUR_TOKEN")
+                .build()
+        );
+    }
+
+    private Optional<Cep> searchByAddress(
+            @NonNull String estado,
+            @NonNull String cidade,
+            String logradouro
+    ) {
+        return cepFromRequest(
+                new Request.Builder()
+                        .url(String.format("http://www.cepaberto.com/api/v3/address?estado=%s&cidade=%s&logradouro=%s", estado, cidade, logradouro))
+                        .addHeader("Authorization", "Token token=YOUR_TOKEN")
+                        .build()
+        );
+    }
+
+    private Optional<Cep> searchCities(@NonNull String estado) {
+        return cepFromRequest(new Request.Builder()
+                .url(String.format("http://www.cepaberto.com/api/v3/cities?estado=%s", estado))
+                .addHeader("Authorization", "Token token=YOUR_TOKEN")
+                .build()
+        );
+    }
+
+    private Optional<Cep> cepFromRequest(Request request) {
+        try (Response response = httpClient.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                return Optional.of(gson.fromJson(response.body().string(), Cep.class));
+            }
+            return Optional.empty();
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Value
+    private static class Cep {
+        private final String cep;
+        private final double altitude;
+        private final double latitude;
+        private final double longitude;
+        private final String bairro;
+        private final String logradouro;
+        private final Cidade cidade;
+        private final Estado estado;
+        
+        @Value
+        private static class Cidade {
+            private final String nome;
+            private final Integer ddd;
+            private final String ibge;
+        }
+
+        @Value
+        private static class Estado {
+            private final String sigla;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Api api = new Api();
+        System.out.println(api.searchByCep("40010000"));
+        System.out.println(api.searchByAddress("SP", "São Paulo", "Praça da Sé"));
+        System.out.println(api.searchCities("AM"));
+    }
 }
