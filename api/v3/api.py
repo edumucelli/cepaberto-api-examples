@@ -22,6 +22,14 @@ def search_cities():
     return response.json()
 
 
+def update_ceps():
+    url = "http://www.cepaberto.com/api/v3/update"
+    ceps_to_update = ['32371380', '32210180']
+    data = {'ceps': ",".join(ceps_to_update)}
+    response = requests.post(url, data=data, headers=headers)
+    return response.json()
+
+
 if __name__ == '__main__':
     print(search_by_cep())
     print(search_by_address())
