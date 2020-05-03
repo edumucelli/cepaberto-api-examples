@@ -34,7 +34,7 @@ namespace Helpers.AddressProvider.Providers
         public CEPAbertoResponse Make(String cep)
         {
             var token = "Token token=YOUR_TOKEN";
-            var url = "http://www.cepaberto.com/api/v3/cep?cep={0}";
+            var url = "https://www.cepaberto.com/api/v3/cep?cep={0}";
 
             var client = new WebClient { Encoding = Encoding.UTF8 };
             client.Headers.Add(HttpRequestHeader.Authorization, token);
