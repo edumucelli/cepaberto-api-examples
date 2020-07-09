@@ -8,4 +8,8 @@ Estes não pretendem ser códigos completos, mas snippets que indiquem como util
 * C#
 * Java
 
+Outras bibliotecas prontas existem em
+
+* [R](https://cran.r-project.org/web/packages/cepR/index.html)
+
 Se quiser adicionar linguagens não existentes na lista, envie uma PR.
